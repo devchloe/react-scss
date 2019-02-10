@@ -36,7 +36,7 @@
 UI 컴포넌트를 React 컴포넌트로 분해하기를 반복할 때 **Single Responsibility Principle**만 기억하면 된다.  
 하나의 React 컴포넌트가 여러 역할을 하지 않도록 구성한다.
 
-#### Task 1
+#### Task 1 - Todo 카드가 여러 개 보여야 한다
 <img src="./public/images/picture_2_1.png" alt="스토리: Todo 카드가 여러 개 보여야 한다." width="400">
 
 위에 그림처럼 카드가 두개 있는 목록을 React App으로 제작한다고 생각하자.
@@ -51,7 +51,7 @@ Task 1 결과
   * Card: display a card
 ```
 
-#### Task 2
+#### Task 2 - Todo 카드 버튼을 클릭하면 상태가 바뀐 버튼이 보여야 한다
 <img src="./public/images/picture_2_2.png" alt="스토리: Todo 카드 버튼을 클릭하면 상태가 바뀐 버튼이 보여야 한다." width="400">
 
 그런데 하나의 Card 컴포넌트 안에 두가지 타입의 버튼이 존재한다. 
@@ -60,7 +60,9 @@ Task 1 결과
 
 이렇게 버튼을 바꿔치기(transmulation) 하는 로직을 평범하게 Card 컴포넌트 안에서 처리할 수도 있다.
 
-그러나 **새로운 Component를 만들어 어떤 버튼을 렌더링할 지 결정하는 책임을 Card 컴포넌트로부터 분리**하는 것이 기능 확장성과 재사용성 면에서 이점이 있다.
+그러나 **새로운 Component를 만들어 어떤 버튼을 렌더링할 지 결정하는 책임을 Card 컴포넌트로부터 분리**하는 것이 기능 확장성과 재사용성 면에서 이점이 있다. 
+
+**`Card` 컴포넌트는 카드 내용을 보여주는 역할**만 하도록 한다. 
 
 새롭게 만든 Component는 사용자 입력을 Button으로 받아 처리하므로 `CardActionButton`이라고 지었다.
 
@@ -79,23 +81,23 @@ Task 1 결과
     - component naming rule
     사용자 액션이 발생하는 컴포넌트는 -Button, -Form이라는 suffix를 붙여서 구분했다.
 
-#### Task 3
+#### Task 3 - 새로운 Todo 카드를 추가할 수 있다
 <img src="./public/images/picture_3.png" title="스토리: 새로운 Todo 카드를 추가할 수 있다." width="400">
 
 카드 추가를 위한 + 버튼은 어느 컴포넌트에 넣어야 할까?
 
 Task 2의 Component Tree에서 보면 `CardList` 하위에 넣는 것이 적당해 보일 수 있다.
 
-그런데 `CardList`는 Card 목록을 보여주는 역할을 담당하고 있다.  
+그런데 **`CardList`는 Card 목록을 보여주는 역할**을 담당하고 있다.  
 새로운 카드를 추가하는 역할까지 부여한다면 `CardList`는 단일 책임 원칙에 어긋나게 된다.
 
-이럴 때에는 새로운 Component로 분리하고 기존에 만들어진 컴포넌트들을 묶어주기 위한 Container Component를 만드는 것이 일반적이다. 
+이럴 때에는 **새로운 Component로 분리**하고 기존에 만들어진 **컴포넌트들을 묶어주기 위한 Container Component를 만드는 것**이 일반적이다. 
 
-새로운 카드를 추가할 때 사용자로부터 카드 내용을 입력 받는 폼이 필요하고 액션이 발생하기 때문에 컴포넌트 이름을 `CardForm`이라고 지었다.
+새로운 카드를 추가할 때 **사용자로부터 카드 내용을 입력 받는 폼이 필요하고 액션이 발생하기 때문에 컴포넌트 이름을 `CardForm`이라고** 지었다.
 
 `CardList`와 `CardForm`을 포함하는 Container Component 이름은 카드 현황을 보여주므로 `CardsDashboard`라고 지었다.
 
-UI에서 보이듯이 이 컴포넌트는 `CardList`의 하위 컴포넌트가 아니라 동일한 레벨로 구성되어야 맞다.
+UI에서 보이듯이 **이 컴포넌트는 `CardList`의 하위 컴포넌트가 아니라 동일한 레벨**로 구성되어야 맞다.
 
 이를 적용한 React Component Tree는 다음과 같다.
 
@@ -107,7 +109,7 @@ UI에서 보이듯이 이 컴포넌트는 `CardList`의 하위 컴포넌트가 �
           - CardActionButton: decide which button is displayed depending on user's input
       * CardForm: display card's form to create a new card
 
-#### Task 4
+#### Task 4 - + 버튼을 클릭하면 새로운 Todo 카드(title, category)를 추가할 수 있는 입력폼이 보여야 한다
 <img src="./public/images/picture_4.png" title="스토리: + 버튼을 클릭하면 새로운 Todo 카드(title, category)를 추가할 수 있는 입력폼이 보여야 한다." width="400">
 
 Task 3의 결과로 `CardForm` 컴포넌트는 + 버튼과 새로운 카드를 추가하기 위한 입력폼을 렌더링할 수 있게 만들어졌다.  
@@ -122,7 +124,7 @@ Task 2에서 `Card` 컴포넌트에서 버튼을 `CardActionButton`으로 분리
 
 따라서 새로운 Container Component를 만들어 렌더링할 뷰를 선택하도록 만드는 것이 좋다. 이제야 비로소 `CardForm`은 카드 추가 입력폼만 렌더링하게 되었다.
 
-이름은 상태를 토글할 수 있는 컴포넌트라는 의미에서 `ToggleableCardForm`으로 지었다.
+이름은 **상태를 토글할 수 있는 컴포넌트라는 의미에서 `ToggleableCardForm`으로** 지었다.
 
 이를 적용한 React Component Tree는 다음과 같다.
 
@@ -139,10 +141,10 @@ Task 2에서 `Card` 컴포넌트에서 버튼을 `CardActionButton`으로 분리
     - directory layout
     CardList나 ToggleableCardForm은 Container Component 역할에 더 가깝지 않을까? 그러니 CardsDashboard와 같은 directory로 구성하고 Card와 CardForm은 재사용이 가능한 독립적인 컴포넌트이니 별도의 directory로 구성하면 어떨까? 이 결정은 Redux까지 좀 더 파악한 후에 다시 하기로.
 
-#### Task 5
+#### Task 5 - 이미 등록한 카드를 수정할 수 있다
 <img src="./public/images/picture_5.png" title="스토리: 이미 등록한 카드를 수정할 수 있다." width="400">
 
-수정을 위한 입력폼은 추가 입력폼과 동일한 뷰를 가지므로 `CardForm` 컴포넌트를 재사용할 수 있다.
+수정을 위한 입력폼은 추가 입력폼과 동일한 뷰를 가지므로 **`CardForm` 컴포넌트를 재사용**할 수 있다.
 
 이 `CardForm` 컴포넌트는 `Card`와 동일한 레벨로 렌더링되므로 `CardList` 하위 컴포넌트로 구성된다.
 
@@ -160,13 +162,13 @@ Task 2에서 `Card` 컴포넌트에서 버튼을 `CardActionButton`으로 분리
 
 그던데 이번에도 Task 2, Task 4와 같이 연필 아이콘을 클릭하면 다른 유형의 뷰를 렌더링(Card -> CardForm)해야 하는 스토리다. (transmulation)
 
-두 컴포넌트 중 어떤 것을 렌더링할지 결정하는 로직을 어떤 부모 컴포넌트에 넣어야 할까? `CardList`?
+두 컴포넌트 중 **어떤 것을 렌더링할지 결정하는 로직을 어떤 부모 컴포넌트에 넣어야 할까?** `CardList`?
 
-SRP에 따라 새로운 컴포넌트를 만들고 `CardList`는 Card 목록만 렌더링하도록 유지해야 한다.
+**SRP에 따라 새로운 컴포넌트**를 만들고 `CardList`는 Card 목록만 렌더링하도록 유지해야 한다.
 
-새로 만든 컴포넌트는 수정할 수 있는 상태의 카드라는 의미로 `EditableCard` 이라고 지었다.
+새로 만든 컴포넌트는 **수정할 수 있는 상태의 카드라는 의미로 `EditableCard` 이라고** 지었다.
 
-이에 맞춰 `CardList` 컴포넌트도 `EditableCardList`로 이름을 재정의 한다.
+이에 맞춰 `CardList` 컴포넌트도 **`EditableCardList`로 이름을 재정의** 한다.
 
 이를 적용한 React Component Tree는 다음과 같다.
 
@@ -218,21 +220,21 @@ SRP에 따라 새로운 컴포넌트를 만들고 `CardList`는 Card 목록만 �
 
 부모 컴포넌트는 prop을 통해서 자식 컴포넌트에게 하드 코딩된 데이터를 전달한다.  
 
-아직 event propagation을 위한 prop 메서드는 작성하지 않는다.
+**아직 event propagation을 위한 prop 메서드는 작성하지 않는다.** 아직 어떤 데이터를 자식 컴포넌트로 내려야 할지 정하지 않았기 때문이다.
 
 [소스보기](./src/app-static.js "app-static.js")
 
 
 ### 3단계. stateful data를 결정한다.
 
-stateful data로 만든다는 의미는 쉽게 말해 state로 관리한다는 의미이다.
+**stateful data로 만든다는 의미는 쉽게 말해 state로 관리한다**는 의미이다.
 
-state로 관리할 데이터와 그렇지 않은 데이터를 나누는 이유는 서로 다른 부분 트리에서 같은 데이터를 변경할 수 있기 때문에 그 데이터를 변경할 수 있는 권한을 하나의 컴포넌트에만 주기 위해서이다.
+state로 관리할 데이터와 그렇지 않은 데이터를 나누는 이유는 **서로 다른 부분 트리에서 같은 데이터를 변경할 수 있기 때문에 그 데이터를 변경할 수 있는 권한을 하나의 공통 조상 컴포넌트에만 주기 위해서**이다.
 
 예를 들어 title, category 데이터는 `ToggleableCardForm` 하위의 `CardForm`과 `EditableCard` 하위의 `CardForm`에서 모두 변경이 가능하다.  
 그리고 그 변경이 발생할 때마다 `EditableCard` 하위의 `Card`에 반영되어야 한다.
 
-만약 서로 다른 부모를 가지는 각 `CardForm`이 title, category 데이터를 마음대로 변경할 수 있게 한다면 이 데이터에 의존성을 가지는 컴포넌트들 간의 sync가 깨질 확률이 높아지게 된다.  
+**만약 서로 다른 부모를 가지는 각 `CardForm`이 title, category 데이터를 마음대로 변경할 수 있게 한다면 이 데이터에 의존성을 가지는 컴포넌트들 간의 sync가 깨질 확률이 높아지게 된다.** 
 
 따라서 어떤 데이터가 stateful하게 관리되어야 하는지 결정하는 것은 매우 중요하다.
 
@@ -371,7 +373,7 @@ class EditableTodo extends Component {
 #### Task 4
 input HTML element에서 발생하는 변경사항은 React가 캐치하지 못하기 때문에 입력폼을 렌더링하는 컴포넌트에서 직접 state를 선언해줄 필요가 있다.
 
-다시 말하면 HTML element에 React에서 제공하는 onChange 속성을 통해 입력값이 변경하는 것을 캐치하고 그것을 state에 담아놓아야 브라우저와 state간의 sync를 맞추고 뷰를 갱신할 수 있다.
+다시 말하면 HTML element에 React에서 제공하는 onChange 속성을 통해 입력값이 변경하는 것을 캐치하고 그것을 state에 담아놓아야 **브라우저와 state간의 sync를 맞추고 뷰를 갱신**할 수 있다.
 
 변경 전
 ```jsx
@@ -422,7 +424,7 @@ class TodoForm extends Component {
 ### 5단계. state 데이터를 하드코딩한다. (parent -> child prop 메서드 작성)
 아직 서버로부터 데이터를 받는 작업을 하기 전에 3~4단계에서 결정한 내용을 2단계 결과물에 적용한다.
 
-state 데이터를 하드코딩에서 구현하고 props에서 state로 변경이 필요한 코드부분을 모두 리팩토링한다. 또한 부모 컴포넌트에서 자식 컴포넌트로 향하는 prop 메서드를 모두 정의힌다.
+state 데이터를 하드코딩에서 구현하고 props에서 state로 변경이 필요한 코드부분을 모두 리팩토링한다. 또한 이제 부모 컴포넌트에서 자식 컴포넌트로 향하는 prop 메서드를 모두 정의힌다.
 
 ### 6단계. inverse data-flow를 작성한다. (child -> parent event propagation 작성)
 
@@ -566,3 +568,30 @@ class ChildComponent extends Componet {
 - 개발 전에..
 - IPM 후 컴포넌트 같이 나누기 
 - 디자이너, PM이 정한 요소 이름을 바탕으로 Block 이름 정하기
+
+
+## 번외 
+### React Project의 이상적인 directory layout
+
+- 수정해야할 코드를 빠르게 찾아낼 수 있는 구조 (directory structure)
+- 최소한의 노력으로 원하는 파일을 찾을 수 있는 구조 (naming)
+
+#### React는 파일의 위치를 강요하지 않는다
+
+그러면 이상적인 구조를 만들기 위한 최소한의 규칙은?
+
+- 불필요한 nested 구조는 지양한다
+- 서로 가깝게 쓰이는 파일은 가깝게 위치시킨다 (colocation 원칙)
+- 이름은 누가 봐도 어디에 어떻게 쓰일지 예측할 수 있어야 한다
+
+#### directory layout과 이름지을 때 그라운드 룰
+- 너무 오랫동안 너무 많이 생각하지 않는다 (한번에 최대 5분)
+- 불필요한 nested 구조는 지양한다 (최대 3-4레벨)
+- 서로 가깝게 쓰이는 파일은 가깝게 위치시킨다 (colocation 원칙)
+- 이름은 누가 봐도 어디에 어떻게 쓰일지 예측할 수 있어야 한다
+
+
+## 준비하면서 얻은 Lesson-learned
+- 어차피 답이 없다. 답은 팀원끼리 만든다.
+- 최소한 high-level 용어는 팀원과 함께 만들기
+- 무엇보다 계속 리팩토링하는게 중요하다는 결론..
