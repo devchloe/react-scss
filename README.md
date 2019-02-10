@@ -37,7 +37,8 @@ UI 컴포넌트를 React 컴포넌트로 분해하기를 반복할 때 **Single 
 하나의 React 컴포넌트가 여러 역할을 하지 않도록 구성한다.
 
 #### Task 1
-![스토리: Todo 카드가 여러 개 보여야 한다.](./public/images/picture_2_1.png "스토리: Todo 카드가 여러 개 보여야 한다.")
+<img src="./public/images/picture_2_1.png" alt="스토리: Todo 카드가 여러 개 보여야 한다." width="400">
+
 위에 그림처럼 카드가 두개 있는 목록을 React App으로 제작한다고 생각하자.
 
 먼저 시각적인 UI Compoment들을 논리적으로 쪼개면 카드 내용과 버튼을 보여주는 `Card` 컴포넌트와  Card 컴포넌트 목록을 보여주는 `CardList`로 구분할 수 있다.
@@ -51,7 +52,8 @@ Task 1 결과
 ```
 
 #### Task 2
-![스토리: Todo 카드 버튼을 클릭하면 상태가 바뀐 버튼이 보여야 한다.](./public/images/picture_2_2.png "스토리: Todo 카드 버튼을 클릭하면 상태가 바뀐 버튼이 보여야 한다.")
+<img src="./public/images/picture_2_2.png" alt="스토리: Todo 카드 버튼을 클릭하면 상태가 바뀐 버튼이 보여야 한다." width="400">
+
 그런데 하나의 Card 컴포넌트 안에 두가지 타입의 버튼이 존재한다. 
 
 즉 Start 버튼 클릭이라는 사용자 입력 조건에 따라 Card 컴포넌트가 렌더링하는 버튼 색깔과 텍스트가 바껴야 한다.
@@ -78,7 +80,7 @@ Task 1 결과
     사용자 액션이 발생하는 컴포넌트는 -Button, -Form이라는 suffix를 붙여서 구분했다.
 
 #### Task 3
-![스토리: 새로운 Todo 카드를 추가할 수 있다.](./public/images/picture_3.png "스토리: 새로운 Todo 카드를 추가할 수 있다.")
+<img src="./public/images/picture_3.png" title="스토리: 새로운 Todo 카드를 추가할 수 있다." width="400">
 
 카드 추가를 위한 + 버튼은 어느 컴포넌트에 넣어야 할까?
 
@@ -106,7 +108,7 @@ UI에서 보이듯이 이 컴포넌트는 `CardList`의 하위 컴포넌트가 �
       * CardForm: display card's form to create a new card
 
 #### Task 4
-![스토리: + 버튼을 클릭하면 새로운 Todo 카드(title, category)를 추가할 수 있는 입력폼이 보여야 한다.](./public/images/picture_4.png "스토리: + 버튼을 클릭하면 새로운 Todo 카드(title, category)를 추가할 수 있는 입력폼이 보여야 한다.")
+<img src="./public/images/picture_4.png" title="스토리: + 버튼을 클릭하면 새로운 Todo 카드(title, category)를 추가할 수 있는 입력폼이 보여야 한다." width="400">
 
 Task 3의 결과로 `CardForm` 컴포넌트는 + 버튼과 새로운 카드를 추가하기 위한 입력폼을 렌더링할 수 있게 만들어졌다.  
 
@@ -138,7 +140,7 @@ Task 2에서 `Card` 컴포넌트에서 버튼을 `CardActionButton`으로 분리
     CardList나 ToggleableCardForm은 Container Component 역할에 더 가깝지 않을까? 그러니 CardsDashboard와 같은 directory로 구성하고 Card와 CardForm은 재사용이 가능한 독립적인 컴포넌트이니 별도의 directory로 구성하면 어떨까? 이 결정은 Redux까지 좀 더 파악한 후에 다시 하기로.
 
 #### Task 5
-![스토리: 이미 등록한 카드를 수정할 수 있다.](./public/images/picture_5.png "스토리: 이미 등록한 카드를 수정할 수 있다.")
+<img src="./public/images/picture_5.png" title="스토리: 이미 등록한 카드를 수정할 수 있다." width="400">
 
 수정을 위한 입력폼은 추가 입력폼과 동일한 뷰를 가지므로 `CardForm` 컴포넌트를 재사용할 수 있다.
 
@@ -188,8 +190,6 @@ SRP에 따라 새로운 컴포넌트를 만들고 `CardList`는 Card 목록만 �
 ### 2단계. prop만을 이용해 정적인 App을 작성 (without interaction, data-flow from parent to child)
 
 완성된 Component Tree는 다음과 같다.
-![완성된 Component Tree](./public/images/picture_6.png "완성된 Component Tree")
-
 ```
                                                   +---------+---------+
                                                   |   CardsDashboard  |
