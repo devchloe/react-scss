@@ -1,0 +1,39 @@
+body {
+  background: #f3f3f3;
+}
+
+.component { // match to react component
+  $self: &; // $self is .component
+  display: block;
+  max-width: 30rem;
+  min-height: 30rem;
+  margin: 5rem auto;
+  background: rebeccapurple;
+  position: relative;
+  border: 1px dashed rebeccapurple;
+
+  &--reversed { // & is .component
+    background: white;
+    border-color: lightgray;
+  }
+
+  &__child-element { // & is .component
+    display: block;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    background-color: white;
+
+    &--yellow { // & is .component__child-element
+      background-color: yellow;
+    }
+
+    #{ $self }--reversed & { // & is .component__child-element under .component--reversed
+      background-color: rebeccapurple;
+    }
+  }
+}
