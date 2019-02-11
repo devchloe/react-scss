@@ -349,7 +349,7 @@ class EditableCard extends Component {
 ```
 변경 후 미리보기 
 ```jsx
-class EditableTodo extends Component {
+class EditableCard extends Component {
     state = {
         editFormOpen: false,
     };
@@ -396,7 +396,7 @@ class CardForm extends Component {
 변경 후 미리보기 
 ```jsx
 
-class TodoForm extends Component {
+class CardForm extends Component {
     state = {
         title: this.props.title || '',
         category: this.props.category || '',
